@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ube Republic</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* NAVBAR */
+nav { 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: #2f6b3f;
+}
+
+nav h2 {
+    color: #fff;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+/* HERO */
+.hero {
+    height: 80vh;
+    background: linear-gradient(
+        rgba(0,0,0,0.5),
+        rgba(0,0,0,0.5)
+    ), url("images/Logo.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.hero h1 {
+    font-size: 42px;
+}
+
+.hero p {
+    margin: 15px 0;
+}
+
+.hero button {
+    padding: 12px 30px;
+    border: none;
+    background: #7ed957;
+    color: black;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* SECTIONS */
+section {
+    padding: 70px 20px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+section h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #2f6b3f;
+}
+
+/* ABOUT */
+.about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: center;
+}
+
+.about-text p {
+    text-align: justify;
+    line-height: 1.8;
+    color: #2e7d32;
+    margin-bottom: 15px;
+}
+
+.about-images {
+    display: grid;
+    gap: 15px;
+}
+
+.about-images img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* PRODUCTS */
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    align-items: stretch;
+}
+
+.product-card {
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.6s ease;
+    opacity: 1;
+    transform: none;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 45px rgba(0,0,0,0.12);
+}
+
+.product-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+}
+
+.product-body {
+    padding: 16px;
+}
+
+.product-title {
+    font-size: 18px;
+    color: #2f6b3f;
+    margin: 8px 0 6px;
+}
+
+.product-btn {
+    display: inline-block;
+    padding: 8px 14px;
+    background: #7ed957;
+    color: black;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+/* GALLERY */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    cursor: pointer;
+    background: #fff;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease, filter 0.4s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+    filter: brightness(0.95);
+}
+
+.gallery-item figcaption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 10px 14px;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 100%);
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* LIGHTBOX */
+.lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 30px;
+}
+.lightbox img {
+    max-width: 95%;
+    max-height: 85%;
+    border-radius: 8px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+}
+.lightbox .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #fff;
+    font-size: 36px;
+    cursor: pointer;
+}
+
+@media (max-width: 480px) {
+    .gallery-item img { height: 140px; }
+}
+
+/* CONTACT */
+.contact {
+    padding: 40px 20px;
+    background: linear-gradient(180deg, #f7fff3, #ffffff);
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+.contact h2 {
+    text-align: center;
+    margin-bottom: 24px;
+}
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+    align-items: start;
+}
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.contact-item {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    color: #2f6b3f;
+    font-weight: 600;
+}
+.contact-item small {
+    display: block;
+    font-weight: 400;
+    color: #444;
+}
+.map-box {
+    margin-top: 12px;
+    background: #e9f6ea;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+.contact-form {
+    background: #fff;
+    padding: 18px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+.contact-form label { font-size: 14px; color: #333; margin-bottom: 6px; display: block; }
+.contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #e6e6e6;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    font-family: inherit;
+}
+.contact-form button {
+    padding: 10px 16px;
+    background: #2f6b3f;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 700;
+}
+.contact-form button:hover { background: #25532d; }
+.contact-small { font-size: 14px; color: #555; margin-top: 8px; }
+
+@media (max-width: 768px) {
+    .contact-grid { grid-template-columns: 1fr; }
+}
+
+/* FOOTER */
+footer {
+    background: #2f6b3f;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .about {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <h2>FARM LOGO</h2>
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Products</a></li>
+        <li><a href="#">Gallery</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+    <div>
+        <h1>Ube Republic</h1>
+        <p>A True source of Filipino pride.</p>
+        <p>Growing Fresh & Healthy Crops</p>
+        <button>Learn More</button>
+    </div>
+</div>
+
+<!-- ABOUT -->
+<section>
+    <h2>About Our Farm</h2>
+    <div class="about">
+        <div class="about-text">
+            <p>
+            Our farm is committed to sustainable and responsible agriculture, focused on producing high-quality, fresh, and natural farm products. We believe that healthy soil, ethical farming practices, and respect for nature are the foundations of long-term food security and community well-being.
+            </p>
+            <p>
+            Through careful cultivation and modern farming techniques, we ensure that every product meets high standards of quality, safety, and freshness. Our farm supports local livelihoods while promoting environmentally friendly practices that protect the land for future generations.
+            </p>
+            <p>
+             We take pride in being a trusted source of farm-fresh produce, grown with dedication, integrity, and a deep respect for the environment.
+            </p>
+        </div>
+        <div class="about-images">
+            <img src="images/ube5.jpg" alt="Ube field">
+            <img src="images/ube6.jpg" alt="Ube harvest">
+        </div>
+    </div>
+</section>
+
+<!-- PRODUCTS -->
+<section>
+    <h2>Our Products</h2>
+    <div class="products">
+        <div class="product-card">
+            <img class="product-img" src="images/ube1.jpg" alt="Ube Product 1">
+            <div class="product-body">
+                <h3 class="product-title">Ube Product 1</h3>
+                <a class="product-btn" href="#">View Product</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img class="product-img" src="images/ube2.jpg" alt="Ube Product 2">
+            <div class="product-body">
+                <h3 class="product-title">Ube Product 2</h3>
+                <a class="product-btn" href="#">View Product</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img class="product-img" src="images/ube3.jpg" alt="Ube Product 3">
+            <div class="product-body">
+                <h3 class="product-title">Ube Product 3</h3>
+                <a class="product-btn" href="#">View Product</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- GALLERY -->
+<section>
+    <h2>Farm Gallery</h2>
+    <div class="gallery">
+        <figure class="gallery-item">
+            <img src="images/Gallery3.jpg" alt="Farm scene 1" data-full="images/Gallery3.jpg">
+            <figcaption>Farm scene 1</figcaption>
+        </figure>
+        <figure class="gallery-item">
+            <img src="images/gallery2.jpg" alt="Farm scene 2" data-full="images/gallery2.jpg">
+            <figcaption>Farm scene 2</figcaption>
+        </figure>
+        <figure class="gallery-item">
+            <img src="images/gallery1.jpg" alt="Farm scene 3" data-full="images/gallery1.jpg">
+            <figcaption>Farm scene 3</figcaption>
+        </figure>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact">
+    <h2>Contact Us</h2>
+    <div class="contact-grid">
+        <div class="contact-info">
+            <div class="contact-item">📍 <div><strong>Location</strong><small>TDM, Digos, Philippines, 8002</small></div></div>
+            <div class="contact-item">📞 <div><strong>Phone</strong><small><a href="tel:09068013243">0906 801 3243</a></small></div></div>
+            <div class="contact-item">📧 <div><strong>Email</strong><small><a href="mailto:livelofarmestates@gmail.com">livelofarmestates@gmail.com</a></small></div></div>
+            <div class="contact-item">⏰ <div><strong>Hours</strong><small>Mon–Sat · 8:00–17:00</small></div></div>
+            <div class="map-box">📍 <a href="https://www.google.com/maps/search/?api=1&query=TDM+Digos+Philippines" target="_blank" rel="noopener">Get directions on Google Maps</a></div>
+        </div>
+
+        <form class="contact-form" id="contactForm" novalidate>
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" required>
+
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required>
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+
+            <button type="submit">Send Message</button>
+            <p class="contact-small" id="contact-form-feedback" aria-live="polite"></p>
+        </form>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    © 2026 ube republic. All rights reserved.
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+    <div class="close" id="lightbox-close">&times;</div>
+    <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+// Lightbox behavior: open image on click, close on backdrop/close/ESC
+document.addEventListener('click', function(e){
+    const target = e.target;
+    // open
+    if (target.matches('.gallery-item img')) {
+        const src = target.dataset.full || target.src;
+        const lb = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lightbox-img');
+        lbImg.src = src;
+        lb.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+    // close when clicking backdrop or close button
+    if (target.id === 'lightbox' || target.id === 'lightbox-close') {
+        const lb = document.getElementById('lightbox');
+        lb.style.display = 'none';
+        document.body.style.overflow = '';
+        document.getElementById('lightbox-img').src = '';
+    }
+});
+// close on ESC
+document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') {
+        const lb = document.getElementById('lightbox');
+        if (lb && lb.style.display === 'flex') {
+            lb.style.display = 'none';
+            document.body.style.overflow = '';
+            document.getElementById('lightbox-img').src = '';
+        }
+    }
+});
+</script>
+
+<script>
+// Contact form (demo): validate and show a confirmation message without sending
+document.addEventListener('DOMContentLoaded', function(){
+    const form = document.getElementById('contactForm');
+    const feedback = document.getElementById('contact-form-feedback');
+    if (form) {
+        form.addEventListener('submit', function(e){
+            e.preventDefault();
+            const name = form.name.value.trim();
+            const email = form.email.value.trim();
+            const message = form.message.value.trim();
+            if (!name || !email || !message) {
+                feedback.style.color = '#d9534f';
+                feedback.textContent = 'Please fill in all fields.';
+                return;
+            }
+            feedback.style.color = '#2f6b3f';
+            feedback.textContent = `Thanks ${name.split(' ')[0] || ''}! Your message has been received (demo).`;
+            form.reset();
+            setTimeout(() => feedback.textContent = '', 6000);
+        });
+    }
+});
+</script>
+
+</body>
+</html>
